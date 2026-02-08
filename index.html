@@ -33,7 +33,6 @@
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
-            cursor: none;
         }
 
         /* Custom Cursor */
@@ -47,6 +46,8 @@
             z-index: 9999;
             transition: transform 0.15s ease, border-color 0.3s;
             mix-blend-mode: difference;
+            left: 0;
+            top: 0;
         }
 
         .cursor-follower {
@@ -60,6 +61,8 @@
             transition: transform 0.3s ease, opacity 0.3s;
             opacity: 0.5;
             mix-blend-mode: difference;
+            left: 0;
+            top: 0;
         }
 
         .cursor.hover {
@@ -1187,15 +1190,6 @@
             .logo {
                 font-size: 2.5rem;
             }
-
-            /* Disable custom cursor on mobile */
-            body {
-                cursor: auto;
-            }
-
-            .cursor, .cursor-follower {
-                display: none;
-            }
         }
 
         @media (max-width: 640px) {
@@ -1241,6 +1235,13 @@
 
             .modal-content {
                 padding: 2rem;
+            }
+        }
+
+        /* Hide custom cursor on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .cursor, .cursor-follower {
+                display: none !important;
             }
         }
     </style>
@@ -1688,20 +1689,31 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Custom Cursor
+        // Custom Cursor - Enhanced version
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
 
         let mouseX = 0, mouseY = 0;
         let followerX = 0, followerY = 0;
+        let cursorX = 0, cursorY = 0;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
         });
+
+        function animateCursor() {
+            // Smooth cursor movement
+            const distX = mouseX - cursorX;
+            const distY = mouseY - cursorY;
+            
+            cursorX += distX * 0.3;
+            cursorY += distY * 0.3;
+            
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            
+            requestAnimationFrame(animateCursor);
+        }
 
         function animateFollower() {
             const distX = mouseX - followerX;
@@ -1710,11 +1722,12 @@
             followerX += distX * 0.1;
             followerY += distY * 0.1;
             
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
+            cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
             
             requestAnimationFrame(animateFollower);
         }
+        
+        animateCursor();
         animateFollower();
 
         // Cursor hover effects
@@ -1775,23 +1788,30 @@
             const now = new Date().getTime();
             const distance = eventDate - now;
 
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<p style="font-size: 1.5rem; color: var(--primary); font-weight: 600;">Hackathon is Live!</p>';
+                return;
+            }
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
 
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<p style="font-size: 1.5rem; color: var(--primary);">Hackathon is Live!</p>';
-            }
+            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
         }
 
-        setInterval(updateCountdown, 1000);
+        // Start countdown immediately and repeat every second
         updateCountdown();
+        setInterval(updateCountdown, 1000);
 
         // Mobile Menu Toggle
         function toggleMenu() {
