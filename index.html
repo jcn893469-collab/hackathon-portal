@@ -44,25 +44,19 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.15s ease, border-color 0.3s;
-            mix-blend-mode: difference;
-            left: 0;
-            top: 0;
+            background: transparent;
         }
 
         .cursor-follower {
             width: 40px;
             height: 40px;
-            border: 1px solid var(--accent);
+            border: 2px solid var(--accent);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9998;
-            transition: transform 0.3s ease, opacity 0.3s;
             opacity: 0.5;
-            mix-blend-mode: difference;
-            left: 0;
-            top: 0;
+            background: transparent;
         }
 
         .cursor.hover {
@@ -73,11 +67,6 @@
         .cursor-follower.hover {
             transform: scale(1.5);
             opacity: 0.8;
-        }
-
-        /* Re-enable default cursor for form inputs */
-        input, select, textarea, button, a {
-            cursor: pointer;
         }
 
         /* Decorative background elements */
@@ -153,12 +142,6 @@
             height: 100%;
             background: rgba(26, 77, 46, 0.85);
             z-index: 1;
-        }
-
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .video-background iframe {
@@ -362,6 +345,7 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
         .video-card:hover {
@@ -369,11 +353,10 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .video-card video {
+        .video-card iframe {
             width: 100%;
             height: 250px;
-            object-fit: cover;
-            display: block;
+            pointer-events: none;
         }
 
         .video-overlay {
@@ -410,7 +393,6 @@
             justify-content: center;
             font-size: 1.5rem;
             color: var(--primary);
-            cursor: pointer;
             transition: all 0.3s;
             opacity: 0;
         }
@@ -666,6 +648,7 @@
 
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         label {
@@ -731,10 +714,6 @@
             transform: translateY(-50%);
             color: var(--success);
             display: none;
-        }
-
-        .form-group {
-            position: relative;
         }
 
         input.valid ~ .success-icon {
@@ -1065,29 +1044,11 @@
             position: relative;
         }
 
-        .video-modal-content video {
-            width: 100%;
-            max-height: 80vh;
-            border-radius: 12px;
-        }
-
         .video-modal-content iframe {
             width: 100%;
             max-width: 900px;
             height: 500px;
             border-radius: 12px;
-        }
-
-        @media (max-width: 968px) {
-            .video-modal-content iframe {
-                height: 400px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .video-modal-content iframe {
-                height: 300px;
-            }
         }
 
         .video-modal-close {
@@ -1190,6 +1151,10 @@
             .logo {
                 font-size: 2.5rem;
             }
+
+            .video-modal-content iframe {
+                height: 400px;
+            }
         }
 
         @media (max-width: 640px) {
@@ -1236,6 +1201,10 @@
             .modal-content {
                 padding: 2rem;
             }
+
+            .video-modal-content iframe {
+                height: 300px;
+            }
         }
 
         /* Hide custom cursor on touch devices */
@@ -1260,8 +1229,7 @@
                 src="https://www.youtube.com/embed/0maMQNcWtas?autoplay=1&mute=1&loop=1&playlist=0maMQNcWtas&controls=0&showinfo=0&rel=0&modestbranding=1"
                 frameborder="0"
                 allow="autoplay; encrypted-media"
-                allowfullscreen
-                style="width: 100%; height: 100%; object-fit: cover;">
+                allowfullscreen>
             </iframe>
         </div>
         <div class="header-content">
@@ -1296,8 +1264,7 @@
                         src="https://www.youtube.com/embed/0maMQNcWtas?controls=0&showinfo=0&rel=0&modestbranding=1"
                         frameborder="0"
                         allow="encrypted-media"
-                        allowfullscreen
-                        style="width: 100%; height: 250px; pointer-events: none;">
+                        allowfullscreen>
                     </iframe>
                     <div class="play-button">▶</div>
                     <div class="video-overlay">
@@ -1310,8 +1277,7 @@
                         src="https://www.youtube.com/embed/emopBmt6xn0?controls=0&showinfo=0&rel=0&modestbranding=1"
                         frameborder="0"
                         allow="encrypted-media"
-                        allowfullscreen
-                        style="width: 100%; height: 250px; pointer-events: none;">
+                        allowfullscreen>
                     </iframe>
                     <div class="play-button">▶</div>
                     <div class="video-overlay">
@@ -1324,8 +1290,7 @@
                         src="https://www.youtube.com/embed/Vd5iw1uoUk4?controls=0&showinfo=0&rel=0&modestbranding=1"
                         frameborder="0"
                         allow="encrypted-media"
-                        allowfullscreen
-                        style="width: 100%; height: 250px; pointer-events: none;">
+                        allowfullscreen>
                     </iframe>
                     <div class="play-button">▶</div>
                     <div class="video-overlay">
@@ -1590,7 +1555,7 @@
                     <div class="contact-icon">📧</div>
                     <div class="contact-info">
                         <h3>Email</h3>
-                        <p><a href="/cdn-cgi/l/email-protection#acc4cdcfc7cdd8c4c3c2ecc1cacf82d8c9cfc4"><span class="__cf_email__" data-cfemail="a5cdc4c6cec4d1cdcacbe5c8c3c68bd1c0c6cd">[email&#160;protected]</span></a></p>
+                        <p><a href="mailto:hackathon@mfc.tech">hackathon@mfc.tech</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1688,63 +1653,65 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Custom Cursor - Enhanced version
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
-        let cursorX = 0, cursorY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCursor() {
-            // Smooth cursor movement
-            const distX = mouseX - cursorX;
-            const distY = mouseY - cursorY;
+    <script>
+        // Custom Cursor - Completely rewritten
+        (function() {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
             
-            cursorX += distX * 0.3;
-            cursorY += distY * 0.3;
+            if (!cursor || !cursorFollower) return;
             
-            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            let followerX = 0;
+            let followerY = 0;
             
-            requestAnimationFrame(animateCursor);
-        }
-
-        function animateFollower() {
-            const distX = mouseX - followerX;
-            const distY = mouseY - followerY;
-            
-            followerX += distX * 0.1;
-            followerY += distY * 0.1;
-            
-            cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-            
-            requestAnimationFrame(animateFollower);
-        }
-        
-        animateCursor();
-        animateFollower();
-
-        // Cursor hover effects
-        const hoverElements = document.querySelectorAll('a, button, input, select, textarea, .video-card');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-                cursorFollower.classList.add('hover');
+            // Track mouse position
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-                cursorFollower.classList.remove('hover');
+            
+            // Animate cursor
+            function animate() {
+                // Smooth cursor following
+                let dx = mouseX - cursorX;
+                let dy = mouseY - cursorY;
+                cursorX += dx * 0.2;
+                cursorY += dy * 0.2;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                
+                // Follower with more lag
+                let fdx = mouseX - followerX;
+                let fdy = mouseY - followerY;
+                followerX += fdx * 0.1;
+                followerY += fdy * 0.1;
+                cursorFollower.style.left = followerX + 'px';
+                cursorFollower.style.top = followerY + 'px';
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+            
+            // Hover effects
+            const hoverElements = document.querySelectorAll('a, button, input, select, textarea, .video-card');
+            hoverElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursor.classList.add('hover');
+                    cursorFollower.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursor.classList.remove('hover');
+                    cursorFollower.classList.remove('hover');
+                });
             });
-        });
+        })();
 
         // Particle effect on click
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', function(e) {
             for (let i = 0; i < 6; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -1753,7 +1720,9 @@
                 particle.style.animationDelay = (i * 0.1) + 's';
                 document.body.appendChild(particle);
                 
-                setTimeout(() => particle.remove(), 3000);
+                setTimeout(function() {
+                    particle.remove();
+                }, 3000);
             }
         });
 
@@ -1763,7 +1732,7 @@
             const modal = document.getElementById('videoModal');
             const modalVideo = document.getElementById('modalVideo');
             
-            modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            modalVideo.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
             modal.classList.add('show');
         }
 
@@ -1776,42 +1745,49 @@
         }
 
         // Close video modal on outside click
-        document.getElementById('videoModal').addEventListener('click', (e) => {
+        document.getElementById('videoModal').addEventListener('click', function(e) {
             if (e.target.id === 'videoModal') {
                 closeVideoModal();
             }
         });
 
-        // Countdown Timer
-        function updateCountdown() {
-            const eventDate = new Date('2026-03-15T09:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+        // Countdown Timer - Completely rewritten
+        (function() {
+            function updateCountdown() {
+                const eventDate = new Date('2026-03-15T09:00:00').getTime();
+                const now = new Date().getTime();
+                const distance = eventDate - now;
 
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<p style="font-size: 1.5rem; color: var(--primary); font-weight: 600;">Hackathon is Live!</p>';
-                return;
+                if (distance < 0) {
+                    const countdownEl = document.getElementById('countdown');
+                    if (countdownEl) {
+                        countdownEl.innerHTML = '<p style="font-size: 1.5rem; color: var(--primary); font-weight: 600;">Hackathon is Live!</p>';
+                    }
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+
+                if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-
-            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-        }
-
-        // Start countdown immediately and repeat every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+            // Initial call
+            updateCountdown();
+            
+            // Update every second
+            setInterval(updateCountdown, 1000);
+        })();
 
         // Mobile Menu Toggle
         function toggleMenu() {
@@ -1827,7 +1803,7 @@
             const progressWidth = ((currentStep - 1) / (totalSteps - 1)) * 100;
             document.getElementById('progressLine').style.width = progressWidth + '%';
 
-            document.querySelectorAll('.progress-step').forEach((step, index) => {
+            document.querySelectorAll('.progress-step').forEach(function(step, index) {
                 const stepNumber = index + 1;
                 if (stepNumber < currentStep) {
                     step.classList.add('completed');
@@ -1840,7 +1816,7 @@
                 }
             });
 
-            document.querySelectorAll('.form-step').forEach((step, index) => {
+            document.querySelectorAll('.form-step').forEach(function(step, index) {
                 step.style.display = (index + 1 === currentStep) ? 'block' : 'none';
             });
 
@@ -1850,18 +1826,18 @@
 
         // Real-time Validation
         const validationRules = {
-            firstName: (value) => value.trim().length >= 2,
-            lastName: (value) => value.trim().length >= 2,
-            email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-            phone: (value) => /^[\d\s\-\+\(\)]{10,}$/.test(value),
-            institution: (value) => value.trim().length >= 2,
-            teamName: (value) => value.trim().length >= 2,
-            teamSize: (value) => value !== '',
-            participantType: (value) => value !== '',
-            techStack: (value) => value !== '',
-            experience: (value) => value !== '',
-            tshirtSize: (value) => value !== '',
-            terms: (value) => value === true
+            firstName: function(value) { return value.trim().length >= 2; },
+            lastName: function(value) { return value.trim().length >= 2; },
+            email: function(value) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); },
+            phone: function(value) { return /^[\d\s\-\+\(\)]{10,}$/.test(value); },
+            institution: function(value) { return value.trim().length >= 2; },
+            teamName: function(value) { return value.trim().length >= 2; },
+            teamSize: function(value) { return value !== ''; },
+            participantType: function(value) { return value !== ''; },
+            techStack: function(value) { return value !== ''; },
+            experience: function(value) { return value !== ''; },
+            tshirtSize: function(value) { return value !== ''; },
+            terms: function(value) { return value === true; }
         };
 
         function validateField(field) {
@@ -1897,9 +1873,9 @@
         }
 
         // Add real-time validation listeners
-        document.querySelectorAll('input, select').forEach(field => {
-            field.addEventListener('blur', () => validateField(field));
-            field.addEventListener('input', () => {
+        document.querySelectorAll('input, select').forEach(function(field) {
+            field.addEventListener('blur', function() { validateField(field); });
+            field.addEventListener('input', function() {
                 if (field.classList.contains('invalid') || field.classList.contains('valid')) {
                     validateField(field);
                 }
@@ -1908,14 +1884,14 @@
 
         // Form submission
         const form = document.getElementById('registrationForm');
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const currentStepElement = document.querySelector('.form-step[data-step="' + currentStep + '"]');
             const fields = currentStepElement.querySelectorAll('input[required], select[required]');
             let stepValid = true;
 
-            fields.forEach(field => {
+            fields.forEach(function(field) {
                 const isValid = validateField(field);
                 if (!isValid) {
                     stepValid = false;
@@ -1947,7 +1923,7 @@
             form.reset();
             currentStep = 1;
             updateProgress();
-            document.querySelectorAll('input, select').forEach(field => {
+            document.querySelectorAll('input, select').forEach(function(field) {
                 field.classList.remove('valid', 'invalid');
             });
         }
@@ -1958,15 +1934,15 @@
         }
 
         // Close modal on outside click
-        document.getElementById('successModal').addEventListener('click', (e) => {
+        document.getElementById('successModal').addEventListener('click', function(e) {
             if (e.target.id === 'successModal') {
                 closeModal();
             }
         });
 
         // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -1977,4 +1953,13 @@
             });
         });
 
- 
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeVideoModal();
+            }
+        });
+    </script>
+</body>
+</html>
